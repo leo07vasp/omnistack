@@ -12,6 +12,10 @@ const BookingController = require('./controllers/BookingController');
 const routes = express.Router();
 const upload = multer(uploadConfig);
 
+routes.get('/', (req, res) => {
+  res.json('Hello heroku');
+});
+
 routes.get('/spots', SpotController.index);
 routes.post('/spots', upload.single('thumbnail'), SpotController.store);
 
