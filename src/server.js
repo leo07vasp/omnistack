@@ -26,6 +26,8 @@ app.use(express.json());
 app.use(routes);
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 
-app.listen(3333, () => {
-  console.log('listen on 3333');
+var porta = process.env.PORT || 8080;
+
+app.listen(porta, () => {
+  console.log(`exec in port: ${porta}`);
 });
