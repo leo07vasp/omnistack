@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const routes = require('./routes');
 
@@ -18,6 +19,7 @@ mongoose.connect(
 // req.query = acessar query params url req.query.id
 // req.params = acessar route params app.put('usr/:id') => req.params.id
 
+app.use(cors);
 app.use(express.json());
 app.use(routes);
 
