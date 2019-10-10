@@ -19,6 +19,8 @@ export default function Dashboard() {
   return (
     <>
       <ul className="spot-list">
+        {(spots.length === 0) ? `carregando` : ``}
+
         {spots.map(spot => (
           <li key={spot._id}>
             <header style={{ backgroundImage: `url(${spot.thumbnail_url})` }} />

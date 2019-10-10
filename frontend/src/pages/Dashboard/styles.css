@@ -17,12 +17,17 @@ ul.spot-list li header {
   height: 120px;
   border-radius: 4px;
   background-size: cover;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 ul.spot-list li strong {
   margin-top: 20px;
   font-size: 24px;
   color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 ul.spot-list li span {
   font-size: 15px;
