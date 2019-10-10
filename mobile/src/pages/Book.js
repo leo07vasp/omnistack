@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Image,
   AsyncStorage,
   TextInput,
   TouchableOpacity,
@@ -10,10 +11,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import api from '../services/api';
 
 export default function Book({ navigation }) {
   const id = navigation.getParam('id');
+  const item = navigation.getParam('item');
 
   const [date, setDate] = useState('');
 
@@ -42,7 +46,27 @@ export default function Book({ navigation }) {
   return (
     <View>
       <SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
-        <Text>{id}</Text>
+        <Text style={[styles.about, styles.company]}>
+          Empresa : {item.company}
+        </Text>
+        <Text style={styles.about}>
+          Valor : {item.price ? `R$${item.price}/dia` : 'Grauito'}
+        </Text>
+        <Image style={styles.thumbnail} source={{ uri: item.thumbnail_url }} />
+
+        {/* <View>
+          <TouchableOpacity style={styles.button} title="Show date picker!">
+            <Text style={styles.buttonText}>Selecionar data</Text>
+          </TouchableOpacity>
+        </View> */}
+
+        {/* <DateTimePicker
+          value={new Date('2020-06-12T14:42:42')}
+          is24Hour={true}
+          mode={'date'}
+          show={true}
+          display="default"
+        /> */}
 
         <Text style={styles.label}>Data de interesse *</Text>
 
@@ -109,5 +133,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16
+  },
+  about: {
+    fontSize: 16
+  },
+  company: {
+    fontWeight: 'bold'
   }
 });

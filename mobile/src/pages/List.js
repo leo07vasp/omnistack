@@ -5,7 +5,8 @@ import {
   AsyncStorage,
   StyleSheet,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 
 import { SafeAreaView } from 'react-navigation';
@@ -13,7 +14,7 @@ import { SafeAreaView } from 'react-navigation';
 import SpotList from '../components/SpotList';
 import logo from '../assets/logo.png';
 
-export default function List() {
+export default function List({ navigation }) {
   const [techs, setTechs] = useState([]);
 
   useEffect(() => {
@@ -25,6 +26,11 @@ export default function List() {
     });
   }, []);
 
+  function handleClear() {
+    AsyncStorage.clear();
+    navigation.navigate('Login');
+  }
+
   return (
     <SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
       <Image style={styles.logo} source={logo} />
@@ -35,6 +41,9 @@ export default function List() {
         {/* {techs.map(tech => (
           <SpotList key={tech} tech={tech} />
         ))} */}
+        <TouchableOpacity onPress={handleClear} style={styles.button}>
+          <Text style={styles.buttonText}>Nova busca</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -50,5 +59,19 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center',
     marginTop: 10
+  },
+  button: {
+    height: 42,
+    backgroundColor: '#f05a5b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    margin: 20,
+    marginTop: 30
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16
   }
 });

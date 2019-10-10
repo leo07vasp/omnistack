@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   FlatList,
+  ActivityIndicator,
   Image,
   TouchableOpacity
 } from 'react-native';
@@ -14,23 +15,26 @@ import api from '../services/api';
 
 function SpotList({ tech, navigation }) {
   const [spots, setSpots] = useState([]);
+  const [load, setLoad] = useState(true);
+
   useEffect(() => {
     async function loadSpots() {
       const response = await api.get('/spots', {
         params: { tech }
       });
 
-      setSpots(response.data);
+      await setSpots(response.data);
+      setLoad(false);
     }
 
     loadSpots();
   }, []);
 
-  function handleNavigate(id) {
-    navigation.navigate('Book', { id });
+  function handleNavigate(id, item) {
+    navigation.navigate('Book', { id, item });
   }
 
-  return (
+  return !load ? (
     <View style={styles.container}>
       <Text style={styles.title}>
         Empresas que usam <Text style={styles.bold}>{tech}</Text>
@@ -53,7 +57,7 @@ function SpotList({ tech, navigation }) {
               {item.price ? `R$${item.price}/dia` : 'Gratuito'}
             </Text>
             <TouchableOpacity
-              onPress={() => handleNavigate(item._id)}
+              onPress={() => handleNavigate(item._id, item)}
               style={styles.button}
             >
               <Text style={styles.buttonText}>Solicitar reserva</Text>
@@ -62,6 +66,8 @@ function SpotList({ tech, navigation }) {
         )}
       />
     </View>
+  ) : (
+    <ActivityIndicator size="large" color="#f05a5b" />
   );
 }
 
