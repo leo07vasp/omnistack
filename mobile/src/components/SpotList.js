@@ -13,9 +13,14 @@ import { withNavigation } from 'react-navigation';
 
 import api from '../services/api';
 
+import placeholder from '../assets/placeholder.png';
+
 function SpotList({ tech, navigation }) {
   const [spots, setSpots] = useState([]);
   const [load, setLoad] = useState(true);
+  
+  
+
 
   useEffect(() => {
     async function loadSpots() {
@@ -34,11 +39,13 @@ function SpotList({ tech, navigation }) {
     navigation.navigate('Book', { id, item });
   }
 
+ 
   return !load ? (
     <View style={styles.container}>
       <Text style={styles.title}>
         Empresas que usam <Text style={styles.bold}>{tech}</Text>
       </Text>
+
 
       <FlatList
         style={styles.list}
@@ -50,7 +57,8 @@ function SpotList({ tech, navigation }) {
           <View style={styles.listItem}>
             <Image
               style={styles.thumbnail}
-              source={{ uri: item.thumbnail_url }}
+              source={placeholder}
+              
             />
             <Text style={styles.company}>{item.company}</Text>
             <Text style={styles.price}>
